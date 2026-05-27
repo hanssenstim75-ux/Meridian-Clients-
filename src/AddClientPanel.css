@@ -1,0 +1,302 @@
+.panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 440px;
+  background: #111111;
+  border-left: 1px solid #2a2a2a;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid #2a2a2a;
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+}
+
+.panel-step {
+  font-size: 11px;
+  color: #555;
+  margin-top: 3px;
+  letter-spacing: 0.05em;
+}
+
+.panel-close {
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.15s;
+  font-family: inherit;
+}
+
+.panel-close:hover {
+  color: #fff;
+}
+
+.panel-body {
+  padding: 24px 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.panel-section-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+/* Business Type Grid */
+.type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.type-card {
+  background: #181818;
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  font-family: inherit;
+}
+
+.type-card:hover {
+  background: #1f1f1f;
+  border-color: #444;
+}
+
+.type-icon {
+  font-size: 18px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.type-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.1px;
+}
+
+.type-desc {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.4;
+}
+
+.type-card-other {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  border-style: dashed;
+}
+
+.type-card-other .type-icon {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+/* Custom fields */
+.custom-input-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.custom-input-wrap .field-input {
+  flex: 1;
+}
+
+.remove-field-btn {
+  background: none;
+  border: 1px solid #2a2a2a;
+  color: #555;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 10px 10px;
+  border-radius: 2px;
+  transition: all 0.15s;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.remove-field-btn:hover {
+  color: #fff;
+  border-color: #555;
+}
+
+.add-field-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.add-field-row .field-input {
+  flex: 1;
+}
+
+.add-field-btn {
+  background: none;
+  border: 1px solid #2a2a2a;
+  color: #888;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: all 0.15s;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.add-field-btn:hover {
+  color: #fff;
+  border-color: #555;
+}
+
+/* Fields */
+.field-group {
+  margin-bottom: 16px;
+}
+
+.field-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.field-label-note {
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: #444;
+  text-transform: none;
+  margin-left: 6px;
+}
+
+.field-input {
+  width: 100%;
+  background: #181818;
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #ffffff;
+  font-family: inherit;
+  transition: border-color 0.15s;
+  outline: none;
+}
+
+.field-input::placeholder {
+  color: #3a3a3a;
+}
+
+.field-input:focus {
+  border-color: #555;
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+.panel-divider {
+  height: 1px;
+  background: #2a2a2a;
+  margin: 8px 0 20px;
+}
+
+/* Footer */
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.btn-panel-back {
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s;
+  padding: 0;
+}
+
+.btn-panel-back:hover {
+  color: #fff;
+}
+
+.btn-panel-submit {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.btn-panel-submit:hover {
+  background: #e0e0e0;
+}

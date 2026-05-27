@@ -1,0 +1,353 @@
+.agenda-page {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 0;
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--border);
+}
+
+/* Left panel */
+.agenda-left {
+  border-right: 1px solid var(--border);
+  padding: 28px 24px;
+  overflow-y: auto;
+}
+
+.agenda-section-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.campaign-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campaign-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 16px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  width: 100%;
+}
+
+.campaign-card:hover {
+  background: var(--card-hover);
+  border-color: #333;
+}
+
+.campaign-card-active {
+  border-color: #444;
+  background: #161616;
+}
+
+.campaign-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.campaign-card-icon {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 1px;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+
+.campaign-card-active .campaign-card-icon {
+  color: var(--text);
+}
+
+.campaign-card-titles {
+  flex: 1;
+}
+
+.campaign-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.1px;
+  margin-bottom: 2px;
+}
+
+.campaign-card-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.campaign-card-check {
+  font-size: 8px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.campaign-card-desc {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 10px;
+  padding-left: 28px;
+}
+
+.campaign-card-count {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding-left: 28px;
+}
+
+.campaign-card-active .campaign-card-count {
+  color: var(--text-muted);
+}
+
+/* Right panel */
+.agenda-right {
+  padding: 28px 32px;
+  overflow-y: auto;
+}
+
+.agenda-empty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.agenda-empty-icon {
+  font-size: 24px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.agenda-empty-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.agenda-empty-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* Focus header */
+.focus-header {
+  margin-bottom: 24px;
+}
+
+.focus-header-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.focus-icon {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.focus-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  margin-bottom: 3px;
+}
+
+.focus-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.focus-tip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 2px solid #333;
+  border-radius: 2px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.focus-tip-label {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.focus-tip-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Focus list */
+.focus-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.focus-list-label {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.focus-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.focus-empty {
+  padding: 24px 0;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.focus-client {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+}
+
+.focus-client:last-child {
+  border-bottom: none;
+}
+
+.focus-client-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.focus-client-num {
+  font-size: 10px;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  width: 14px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.focus-client-avatar {
+  width: 30px;
+  height: 30px;
+  background: var(--border-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.focus-client-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.focus-client-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.focus-client-co {
+  font-weight: 400;
+  color: var(--text-dim);
+  font-size: 11px;
+}
+
+.focus-client-reason {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.focus-client-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.focus-client-phone {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.stage-pill {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+
+.focus-action-btn {
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  border-radius: 2px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.focus-action-btn:hover {
+  background: #e0e0e0;
+}
