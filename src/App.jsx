@@ -117,7 +117,7 @@ export default function App({ session }) {
       .select('*')
       .order('created_at', { ascending: false })
       .then(({ data, error }) => {
-        if (!error && data && data.length > 0) {
+        if (!error && data) {
           setClientList(data.map(c => ({
             ...c,
             hintType: c.hint_type || 'followup',
@@ -172,6 +172,7 @@ export default function App({ session }) {
         goal: newClient.goal || null,
         social: newClient.social || null,
         product: newClient.product || null,
+        renewal: newClient.renewal || null,
       }])
       .select()
       .single()
@@ -186,20 +187,24 @@ export default function App({ session }) {
     await supabase.from('clients').update({ stage }).eq('id', id)
   }
 
-  function handleAddReferral({ name, phone, referredBy }) {
+  async function handleAddReferral({ name, phone, referredBy }) {
     const referrer = clientList.find(c => c.id === referredBy)
-    setClientList(prev => [{
-      id: Date.now(),
-      name,
-      phone,
-      initials: name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+    const recontact = (() => { const d = new Date(); d.setDate(d.getDate() + 28); return d.toISOString().split('T')[0] })()
+    const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+    const hint = `Referred by ${referrer?.name || 'client'}`
+    const { data, error } = await supabase.from('clients').insert([{
+      user_id: session.user.id,
+      name, phone, initials,
       stage: 'Lead',
-      hintType: 'followup',
-      hint: `Referred by ${referrer?.name || 'client'}`,
-      reason: `Referred by ${referrer?.name || 'client'}`,
-      recontact: (() => { const d = new Date(); d.setDate(d.getDate() + 28); return d.toISOString().split('T')[0] })(),
-      referredBy,
-    }, ...prev])
+      hint_type: 'followup',
+      hint,
+      reason: hint,
+      recontact,
+      referred_by: referredBy,
+    }]).select().single()
+    if (!error && data) {
+      setClientList(prev => [{ ...data, hintType: 'followup', referredBy }, ...prev])
+    }
   }
 
   const todayStr = new Date().toISOString().split('T')[0]
@@ -362,23 +367,25 @@ export default function App({ session }) {
           <div className="stats-row">
             <div className="stat-card">
               <div className="stat-label">Total Clients</div>
-              <div className="stat-value">28</div>
-              <div className="stat-change up">+3 this month</div>
+              <div className="stat-value">{clientList.length}</div>
+              <div className="stat-change">{clientList.filter(c => c.stage === 'Lead').length} leads</div>
             </div>
             <div className="stat-card">
               <div className="stat-label">Open Deals</div>
-              <div className="stat-value">16</div>
-              <div className="stat-change">€ 73.700 pipeline</div>
+              <div className="stat-value">{clientList.filter(c => ['Lead','Contact','Proposal'].includes(c.stage)).length}</div>
+              <div className="stat-change">in pipeline</div>
             </div>
             <div className="stat-card">
               <div className="stat-label">Follow-ups Due</div>
-              <div className="stat-value">7</div>
-              <div className="stat-change down">2 overdue</div>
+              <div className="stat-value">{dueClients.length}</div>
+              <div className={`stat-change ${dueClients.filter(c => recontactStatus(c.recontact)?.type === 'overdue').length > 0 ? 'down' : ''}`}>
+                {dueClients.filter(c => recontactStatus(c.recontact)?.type === 'overdue').length} overdue
+              </div>
             </div>
             <div className="stat-card">
-              <div className="stat-label">Closed This Month</div>
-              <div className="stat-value">€ 12.400</div>
-              <div className="stat-change up">+18% vs last month</div>
+              <div className="stat-label">Closed</div>
+              <div className="stat-value">{clientList.filter(c => c.stage === 'Closed').length}</div>
+              <div className="stat-change">clients won</div>
             </div>
           </div>
 
@@ -412,7 +419,7 @@ export default function App({ session }) {
               <div className="section">
                 <div className="section-header">
                   <span className="section-title">Clients · Recontact Priority</span>
-                  <span className="section-action">View all →</span>
+                  <span className="section-action" onClick={() => setActiveNav('clients')}>View all →</span>
                 </div>
                 <div className="client-list">
                   {clientList.map(client => (
@@ -436,7 +443,7 @@ export default function App({ session }) {
               <div className="section">
                 <div className="section-header">
                   <span className="section-title">Pipeline</span>
-                  <span className="section-action">Details →</span>
+                  <span className="section-action" onClick={() => setActiveNav('pipeline')}>Details →</span>
                 </div>
                 <div className="pipeline-list">
                   {stages.map(stage => (

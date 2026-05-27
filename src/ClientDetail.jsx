@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './ClientDetail.css'
 
 const STAGES = ['Lead', 'Contact', 'Proposal', 'Closed']
@@ -10,6 +10,15 @@ export default function ClientDetail({ client, clients, onBack, onUpdateStage, o
   const [stage, setStage] = useState(client.stage)
   const [editingHint, setEditingHint] = useState(false)
   const [hint, setHint] = useState(client.hint || '')
+
+  // Sync state when switching between clients
+  useEffect(() => {
+    setStage(client.stage)
+    setNotes(client.notes || [])
+    setHint(client.hint || '')
+    setEditingHint(false)
+    setNote('')
+  }, [client.id])
 
   const referredBy = client.referredBy ? clients.find(c => c.id === client.referredBy) : null
   const referrals = clients.filter(c => c.referredBy === client.id)
@@ -23,8 +32,10 @@ export default function ClientDetail({ client, clients, onBack, onUpdateStage, o
       date: new Date().toLocaleDateString('nl-BE', { day: 'numeric', month: 'short', year: 'numeric' }),
       time: new Date().toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' }),
     }
-    setNotes(prev => [newNote, ...prev])
+    const updatedNotes = [newNote, ...notes]
+    setNotes(updatedNotes)
     setNote('')
+    onUpdateClient(client.id, { notes: updatedNotes })
   }
 
   function changeStage(newStage) {
@@ -48,7 +59,7 @@ export default function ClientDetail({ client, clients, onBack, onUpdateStage, o
           {client.company && <div className="detail-topbar-co">{client.company}</div>}
         </div>
         <div className="detail-topbar-right">
-          <button className="detail-call-btn">Call {client.phone} →</button>
+          <a className="detail-call-btn" href={`tel:${client.phone?.replace(/\s/g, '')}`}>Call {client.phone} →</a>
         </div>
       </div>
 
