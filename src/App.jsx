@@ -282,7 +282,7 @@ export default function App({ session }) {
             </div>
           ))}
           <div className="user-pill">
-            <div className="user-avatar">{(appSettings.firstName || session?.user?.email?.[0] || 'H').toUpperCase()}</div>
+            <div className="user-avatar">{(appSettings.firstName || session?.user?.email || 'H')[0].toUpperCase()}</div>
             <div className="user-info">
               <div className="user-name">{appSettings.firstName || session?.user?.email?.split('@')[0] || 'User'}</div>
               <div className="user-role" style={{ cursor: 'pointer' }} onClick={() => supabase.auth.signOut()}>Sign out</div>
