@@ -496,6 +496,25 @@ export default function App({ session }) {
           </div>
         </div>}
       </main>
+
+      <nav className="mobile-nav">
+        {[
+          { icon: '⬛', label: 'Home', id: 'dashboard' },
+          { icon: '◻', label: 'Clients', id: 'clients' },
+          { icon: '◈', label: 'Pipeline', id: 'pipeline' },
+          { icon: '◷', label: 'Agenda', id: 'agenda' },
+          { icon: '◧', label: 'Settings', id: 'settings' },
+        ].map(item => (
+          <div
+            key={item.id}
+            className={`mobile-nav-item ${activeNav === item.id ? 'active' : ''}`}
+            onClick={() => { setActiveNav(item.id); setSelectedClientId(null) }}
+          >
+            <span className="mobile-nav-icon">{item.icon}</span>
+            <span className="mobile-nav-label">{item.label}</span>
+          </div>
+        ))}
+      </nav>
     </div>
   )
 }
