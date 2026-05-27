@@ -491,3 +491,85 @@
 }
 
 .settings-save-btn:hover { background: #e0e0e0; }
+
+/* ── Settings Mobile ───────────────────────────────── */
+@media (max-width: 768px) {
+  .settings-page {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .settings-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    gap: 0;
+  }
+
+  .settings-sidebar-title {
+    display: none;
+  }
+
+  .settings-tab {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    padding: 14px 20px;
+    white-space: nowrap;
+    font-size: 12px;
+    flex-shrink: 0;
+    width: auto;
+  }
+
+  .settings-tab-active {
+    border-left-color: transparent;
+    border-bottom-color: var(--text);
+    background: transparent;
+  }
+
+  .settings-section {
+    padding: 20px 16px;
+  }
+
+  .settings-footer {
+    padding: 16px;
+  }
+
+  .settings-save-btn {
+    width: 100%;
+  }
+
+  /* Fields stack vertically */
+  .settings-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .settings-field-control {
+    width: 100%;
+  }
+
+  .settings-input,
+  .settings-select {
+    width: 100%;
+  }
+
+  .settings-input-sm {
+    width: 80px;
+  }
+
+  /* Branding cards stack */
+  .branding-mode-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Profile avatar row */
+  .profile-avatar-row {
+    padding: 16px;
+  }
+}
