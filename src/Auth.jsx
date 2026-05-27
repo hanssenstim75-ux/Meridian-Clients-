@@ -19,10 +19,16 @@ export default function Auth() {
     if (mode === 'login') {
       const { error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) setError(error.message)
-    } else {
+    } else if (mode === 'signup') {
       const { error } = await supabase.auth.signUp({ email, password })
       if (error) setError(error.message)
       else setSuccess('Check your email to confirm your account.')
+    } else if (mode === 'reset') {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      })
+      if (error) setError(error.message)
+      else setSuccess('Password reset link sent — check your email.')
     }
 
     setLoading(false)
@@ -39,8 +45,12 @@ export default function Auth() {
           </div>
         </div>
 
-        <div className="auth-title">{mode === 'login' ? 'Welcome back' : 'Create account'}</div>
-        <div className="auth-sub">{mode === 'login' ? 'Sign in to your workspace' : 'Start managing your clients'}</div>
+        <div className="auth-title">
+          {mode === 'login' ? 'Welcome back' : mode === 'signup' ? 'Create account' : 'Reset password'}
+        </div>
+        <div className="auth-sub">
+          {mode === 'login' ? 'Sign in to your workspace' : mode === 'signup' ? 'Start managing your clients' : 'We\'ll send a reset link to your email'}
+        </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="auth-field">
@@ -56,32 +66,39 @@ export default function Auth() {
             />
           </div>
 
-          <div className="auth-field">
-            <label className="auth-label">Password</label>
-            <input
-              className="auth-input"
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              minLength={6}
-            />
-          </div>
+          {mode !== 'reset' && (
+            <div className="auth-field">
+              <label className="auth-label">Password</label>
+              <input
+                className="auth-input"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                minLength={6}
+              />
+            </div>
+          )}
 
           {error && <div className="auth-error">{error}</div>}
           {success && <div className="auth-success">{success}</div>}
 
           <button className="auth-btn" type="submit" disabled={loading}>
-            {loading ? 'Loading...' : mode === 'login' ? 'Sign In →' : 'Create Account →'}
+            {loading ? 'Loading...' : mode === 'login' ? 'Sign In →' : mode === 'signup' ? 'Create Account →' : 'Send Reset Link →'}
           </button>
         </form>
 
         <div className="auth-switch">
           {mode === 'login' ? (
-            <>No account? <button onClick={() => setMode('signup')}>Sign up</button></>
-          ) : (
+            <>
+              <button onClick={() => setMode('reset')} style={{ marginRight: '12px' }}>Forgot password?</button>
+              No account? <button onClick={() => setMode('signup')}>Sign up</button>
+            </>
+          ) : mode === 'signup' ? (
             <>Already have one? <button onClick={() => setMode('login')}>Sign in</button></>
+          ) : (
+            <>Remembered it? <button onClick={() => setMode('login')}>Sign in</button></>
           )}
         </div>
       </div>
