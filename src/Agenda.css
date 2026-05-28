@@ -351,3 +351,45 @@
 .focus-action-btn:hover {
   background: #e0e0e0;
 }
+
+@media (max-width: 768px) {
+  .agenda-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .agenda-left {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 16px;
+    overflow-y: visible;
+  }
+
+  .campaign-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .campaign-card {
+    padding: 12px;
+  }
+
+  .campaign-card-desc {
+    display: none;
+  }
+
+  .agenda-right {
+    padding: 16px;
+  }
+
+  .focus-client-phone {
+    display: none;
+  }
+
+  .focus-client-right {
+    gap: 6px;
+  }
+}

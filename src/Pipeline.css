@@ -492,3 +492,45 @@
   border-color: var(--border);
   background: transparent;
 }
+
+@media (max-width: 768px) {
+  .pipeline-page {
+    padding: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mindmap-board {
+    min-width: 680px;
+    min-height: 600px;
+  }
+
+  .stage-nodes {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    gap: 10px;
+  }
+
+  .stage-node {
+    padding: 8px 10px;
+  }
+
+  .node-name {
+    font-size: 9px;
+  }
+
+  .map-card {
+    padding: 10px;
+  }
+
+  .map-card-name {
+    font-size: 12px;
+  }
+
+  .ref-modal {
+    width: calc(100vw - 32px);
+    left: 16px;
+    right: 16px;
+    transform: translateY(-50%);
+    top: 50%;
+  }
+}
